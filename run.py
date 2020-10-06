@@ -6,13 +6,14 @@ import collections
 import requests
 
 #feedback =
-url = "http://34.122.182.93/fruits/"
-files = os.listdir("/supplier-data/descriptions/")
+url = "http://104.154.111.6/fruits/"
+files = os.listdir("./supplier-data/descriptions/")
 for file in files:
         entry = collections.OrderedDict()
-        path = os.path.join("/supplier-data/descriptions/", file)
+        path = os.path.join("./supplier-data/descriptions/", file)
         print(path)
         name = file.split('.')
+        
         with open(path, 'r') as f:
                 lines = f.readlines()
                 entry['name'] = lines[0].strip("[\n]")
@@ -22,5 +23,5 @@ for file in files:
                 print(entry)
                 feedback_json = json.dumps(entry)
                 print(feedback_json)
-                response = requests.post(url,entry)
+                response = requests.post(url,json=feedback_json)
                 response.raise_for_status()
